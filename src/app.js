@@ -4,7 +4,7 @@ const cors = require('cors')
 var express = require('express');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
-
+var app = express();
 const server = http.createServer(app);
 // const { Server } = require("socket.io");
 // const io = new Server({
@@ -16,7 +16,7 @@ const server = http.createServer(app);
 // console.log("io== ", io);
 
 
-var app = express();
+
 require('./config/db_connection');
 
 
