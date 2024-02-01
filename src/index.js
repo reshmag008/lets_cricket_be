@@ -18,7 +18,7 @@ const startServer = async () => {
     
       // Error handler for uncaught exceptions
       const unexpectedErrorHandler = (error) => {
-        logger.error(error);
+        console.log(error);
         exitHandler();
       };
     
