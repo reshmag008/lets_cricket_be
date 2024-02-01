@@ -5,7 +5,7 @@ var express = require('express');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 
-// const server = http.createServer(app);
+const server = http.createServer(app);
 // const { Server } = require("socket.io");
 // const io = new Server({
 //   cors: {
@@ -57,6 +57,8 @@ app.use((err, req, res, next) => {
 // });
 
 
-app.listen(443, function () {
-  console.log('Example app listening on port 3000!');
-});
+// app.listen(443, function () {
+//   console.log('Example app listening on port 3000!');
+// });
+
+module.exports = { app, server};
