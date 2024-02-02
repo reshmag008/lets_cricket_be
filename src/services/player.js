@@ -15,16 +15,14 @@ async function getPlayers(){
                 promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "cricket-players"}))
             });
             let profilePromises = await Promise.allSettled(promiseArray)
-
-            console.log("before resolveeeeeeeeee",profilePromises)
+            if(players.length>0){
             players.forEach((element,index)=>{
-                console.log("profilePromises[index].value=== ", profilePromises[index].value)
                 players[index]['profile_image'] = profilePromises[index].value;
-
                 if(index == players.length-1){
                     resolve(players)
                 }
             })
+        }
             
         }catch(e){
             console.log("error occured in getPlayers= ", e);
@@ -43,24 +41,22 @@ async function getNonBidPlayers() {
                 }
               });
             let promiseArray =[];
-            players.forEach(async (element,index) => {
-                promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "cricket-players"}))
-            });
-            let profilePromises = await Promise.allSettled(promiseArray)
+            if(players.length>0){
+                players.forEach(async (element,index) => {
+                    promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "cricket-players"}))
+                });
+                let profilePromises = await Promise.allSettled(promiseArray)
 
-            console.log("before resolveeeeeeeeee",profilePromises)
-            if(players.lnegth>0){
-            players.forEach((element,index)=>{
-                console.log("profilePromises[index].value=== ", profilePromises[index].value)
-                players[index]['profile_image'] = profilePromises[index].value;
+                players.forEach((element,index)=>{
+                    players[index]['profile_image'] = profilePromises[index].value;
 
-                if(index == players.length-1){
-                    resolve(players)
-                }
-            })
-        }else{
-            resolve([])
-        }
+                    if(index == players.length-1){
+                        resolve(players)
+                    }
+                })
+            }else{
+                resolve([])
+            }
             
         }catch(e){
             console.log("error occured in getPlayers= ", e);
@@ -72,11 +68,9 @@ async function getNonBidPlayers() {
 }
 
 async function addPlayers(player){
-    console.log("inside add player--- ", player);
     return new Promise(async (resolve, reject) => {
         try {
             let players = await models.players.create(player);
-            console.log("players added====== ", players);
             resolve(players)
         }catch(e){
             console.log("error occured in addPlayers= ", e);
@@ -86,7 +80,6 @@ async function addPlayers(player){
 }
 
 async function updatePlayers(player){
-    console.log("inside updatePlayers--- ", player);
     return new Promise(async (resolve, reject) => {
         try {
             let selectedPlayer = await models.players.findOne({where : {id : player.id}});

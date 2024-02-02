@@ -2,6 +2,7 @@ const express = require('express');
 const playerService = require('../services/player');
 const teamService = require('../services/teams')
 const bodyParser = require('body-parser');
+const s3Service = require('../services/s3Service');
 const router = express.Router();
 
 
@@ -35,14 +36,14 @@ router.put('/players', bodyParser.json(),(req, res) => {
 
 router.post('/upload', bodyParser.json(),(req, res) => {
     console.log(req.body)
-    playerService.getUploadUrl(req.body)
+    s3Service.getUploadUrl(req.body)
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
 });
 
 router.post('/download', bodyParser.json(),(req, res) => {
     console.log(req.body)
-    playerService.getDownloadUrl(req.body)
+    s3Service.getDownloadUrl(req.body)
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
 });
