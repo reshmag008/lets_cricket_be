@@ -6,14 +6,6 @@ const routes = require('./routes');
 const bodyParser = require('body-parser');
 var app = express();
 const server = http.createServer(app);
-// const { Server } = require("socket.io");
-// const io = new Server({
-//   cors: {
-//     origin: "http://localhost:9000"
-//   }
-// });
-
-// console.log("io== ", io);
 
 
 
@@ -61,4 +53,5 @@ app.use((err, req, res, next) => {
 //   console.log('Example app listening on port 3000!');
 // });
 
-module.exports = { app, server};
+
+module.exports = { app,server};
