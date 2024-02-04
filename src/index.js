@@ -1,6 +1,5 @@
 const { server } = require('./app');
-const port = 443;
-
+const port = process.env.PORT || 3000;
 const startServer = async () => {
 
     server.listen(port, () => {
