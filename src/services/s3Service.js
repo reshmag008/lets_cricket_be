@@ -9,7 +9,7 @@ async function getUploadUrl(params){
             const s3 = new AWS.S3({
                 accessKeyId: 'AKIA6ODU5GORGU6OXYMO',
                 secretAccessKey: '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',
-                region : "us-east-1"
+                // region : "us-east-1"
             });
             const reqestParams = {
                 Bucket: params.bucket,
@@ -31,7 +31,7 @@ async function getDownloadUrl(params){
             const s3 = new AWS.S3({
                 accessKeyId: 'AKIA6ODU5GORGU6OXYMO',
                 secretAccessKey: '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',
-                region : "us-east-1"
+                // region : "us-east-1"
             });
             const requestParams = {
                 Bucket: params.bucket,
