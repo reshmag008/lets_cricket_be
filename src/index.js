@@ -2,8 +2,8 @@ const { server } = require('./app');
 const port = process.env.PORT || 80;
 const startServer = async () => {
 
-    server.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
+    server.listen(80, () => {
+      console.log(`Server is running on port ${80}`);
     });
 
 };
