@@ -13,7 +13,18 @@ require('./config/db_connection');
 
 
 app.use(cors());
-app.options('*', cors());
+// app.options('*', cors());
+const ALLOWED_ORIGINS="https://letscricketfe-production.up.railway.app,http://localhost:9000";
+
+const allowedOrigins = ALLOWED_ORIGINS ? ALLOWED_ORIGINS.split(',') : [];
+// Enable Cross-Origin Resource Sharing (CORS) for all routes
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  }),
+);
+
 
 app.use(routes);
 app.disable("x-powered-by");
