@@ -12,9 +12,22 @@ router.get('/players', (req, res) => {
     .catch((err) => res.status(500).json(err))
 });
 
+router.get('/players/:id', (req, res) => {
+    console.log(req.params)
+    playerService.getPlayers(req.params.id)
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
 
 router.get('/non_bid_players', (req, res) => {
     playerService.getNonBidPlayers()
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
+router.get('/non_bid_players/:id', (req, res) => {
+    playerService.getNonBidPlayers(req.params.id)
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
 });

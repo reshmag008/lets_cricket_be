@@ -1,15 +1,20 @@
 
 const models = require('../models');
-const { Op,Sequelize } = require("sequelize");
+const { Op,Sequelize, where } = require("sequelize");
 const AWS = require('aws-sdk');
 const teamService = require('./teams');
 const s3Service = require('./s3Service');
 
 
-async function getPlayers(){
+async function getPlayers(id){
     return new Promise(async (resolve, reject) => {
         try {
-            let players = await models.players.findAll();
+            let players =[];
+            if(id){
+                players = await models.players.findAll({where :{team_id : id}});
+            }else{
+                players = await models.players.findAll();
+            }
             let promiseArray =[];
             players.forEach(async (element,index) => {
                 promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "cricket-players"}))
@@ -22,6 +27,8 @@ async function getPlayers(){
                     resolve(players)
                 }
             })
+        }else{
+            resolve(players)
         }
             
         }catch(e){
@@ -31,15 +38,26 @@ async function getPlayers(){
     })
 }
 
-async function getNonBidPlayers() {
+async function getNonBidPlayers(id) {
 
     return new Promise(async (resolve, reject) => {
         try {
-            let players = await models.players.findAll({
-                where: {
-                  bid_amount: null
-                }
-              });
+            let players =[];
+
+            if(id){
+                players = await models.players.findAll({
+                    where: {
+                      bid_amount: null,
+                      id : id
+                    }
+                  });
+            }else{
+                players = await models.players.findAll({
+                    where: {
+                      bid_amount: null
+                    }
+                  });
+            }
             let promiseArray =[];
             if(players.length>0){
                 players.forEach(async (element,index) => {

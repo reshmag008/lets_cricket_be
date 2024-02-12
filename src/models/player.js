@@ -18,8 +18,8 @@ module.exports = (sequelize, type) => {
         profile_link : { type: type.STRING, allowNull: true },
         profile_image: { type: type.STRING, allowNull: false },
         player_role: { type: type.STRING, allowNull: false },
-        batting_style: { type: type.STRING, allowNull: false },
-        bowling_style: { type: type.STRING, allowNull: false },
+        batting_style: { type: type.STRING, allowNull: true },
+        bowling_style: { type: type.STRING, allowNull: true },
         team_id : { type: type.INTEGER, allowNull: true },
         base_amount : { type: type.INTEGER, allowNull: true },
         bid_amount : { type: type.INTEGER, allowNull: true }

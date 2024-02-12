@@ -9,10 +9,11 @@ module.exports = (sequelize, type) => {
           allowNull: false
         },
         team_name: { type: type.STRING, allowNull: false },
-        owner_name: { type: type.STRING, allowNull: false },
-        contact_no: { type: type.INTEGER, allowNull: false },
+        owner_name: { type: type.STRING, allowNull: true },
+        contact_no: { type: type.INTEGER, allowNull: true },
         team_logo: { type: type.STRING, allowNull: false },
         max_bid_amount : { type: type.INTEGER, allowNull: true },
+        player_count : { type: type.INTEGER, allowNull: true },
         total_points : { type: type.INTEGER, allowNull: true }
       },
       {

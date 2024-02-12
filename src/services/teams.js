@@ -11,16 +11,16 @@ async function getTeams(){
         try {
             let teams = await models.teams.findAll();
             let promiseArray =[];
+            let promiseCountArray = [];
             teams.forEach(async (element,index) => {
                 promiseArray.push(s3Service.getDownloadUrl({"key" : element.team_logo, "bucket" : "cricket-team"}))
             });
             let profilePromises = await Promise.allSettled(promiseArray)
-            console.log("before resolveeeeeeeeee",profilePromises)
-            teams.forEach((element,index)=>{
-                console.log("profilePromises[index].value=== ", profilePromises[index].value)
-                teams[index]['team_logo'] = profilePromises[index].value;
-                if(index == teams.length-1){
-                    resolve(teams)
+            let teamArray = [...teams];
+            teamArray.forEach((element,index)=>{
+                teamArray[index]['team_logo'] = profilePromises[index].value;
+                if(index == teamArray.length-1){
+                    resolve(teamArray)
                 }
             })
         }catch(e){
@@ -31,11 +31,9 @@ async function getTeams(){
 }
 
 async function addTeams(team){
-    console.log("inside add addTeams--- ", team);
     return new Promise(async (resolve, reject) => {
         try {
             let addedTeam = await models.teams.create(team);
-            console.log("team added====== ", addedTeam);
             resolve(addedTeam)
         }catch(e){
             console.log("error occured in addTeams= ", e);
@@ -46,12 +44,14 @@ async function addTeams(team){
 
 
 async function updateTeam(team){
-    console.log("inside add updateTeam--- ", team);
+    console.log("inside add --- ", team);
     return new Promise(async (resolve, reject) => {
         try {
             let addedTeam = await models.teams.findOne({where:{id : team.id}});
             let updateParam = {
-                total_points : addedTeam.total_points - team.bid_amount
+                total_points : addedTeam.total_points - team.bid_amount,
+                player_count : addedTeam.player_count + 1,
+                max_bid_amount : (addedTeam.total_points - team.bid_amount) - ( (11 - addedTeam.player_count ) * 500 )
             }
             addedTeam.set(updateParam);
             await addedTeam.save();
