@@ -7,9 +7,10 @@ async function getUploadUrl(params){
     return new Promise(async (resolve, reject) => {
         try {
             const s3 = new AWS.S3({
-                accessKeyId: 'AKIA6ODU5GORGU6OXYMO',
-                secretAccessKey: '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',
-                // region : "us-east-1"
+                accessKeyId: 'AKIAZQ3DPAR4ZIGPSULL',
+                secretAccessKey: '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',
+                signatureVersion: 'v4',
+                region : "ap-south-1"
             });
             const reqestParams = {
                 Bucket: params.bucket,
@@ -29,9 +30,10 @@ async function getDownloadUrl(params){
     return new Promise(async (resolve, reject) => {
         try {
             const s3 = new AWS.S3({
-                accessKeyId: 'AKIA6ODU5GORGU6OXYMO',
-                secretAccessKey: '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',
-                // region : "us-east-1"
+                accessKeyId: 'AKIAZQ3DPAR4ZIGPSULL',
+                secretAccessKey: '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',
+                signatureVersion: 'v4',
+                region : "ap-south-1"
             });
             const requestParams = {
                 Bucket: params.bucket,
@@ -41,7 +43,7 @@ async function getDownloadUrl(params){
             const uploadUrl = await s3.getSignedUrlPromise('getObject', requestParams);
             resolve(uploadUrl);
         }catch(e){
-            console.log("error occured in uploadPlayerImage= ", e);
+            console.log("error occured in getDownloadUrl= ", e);
             reject(e);
         }
     })

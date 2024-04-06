@@ -5,16 +5,11 @@ var express = require('express');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 var app = express();
-const server = http.createServer(app);
-
-
-
 require('./config/db_connection');
-
 
 app.use(cors());
 // app.options('*', cors());
-const ALLOWED_ORIGINS="https://letscricketfe-production.up.railway.app,http://localhost:9000";
+const ALLOWED_ORIGINS="https://letscricketfe-production.up.railway.app,http://localhost:3000";
 
 const allowedOrigins = ALLOWED_ORIGINS ? ALLOWED_ORIGINS.split(',') : [];
 // Enable Cross-Origin Resource Sharing (CORS) for all routes
@@ -55,14 +50,22 @@ app.use((err, req, res, next) => {
   res.status(500).json({error: 'an error occurred'});
 });
 
-// io.on('connection', (socket) => {
-//   console.log('a user connected');
-// });
+const server = app.listen(8443, () => {
+  console.log(`Server is running on port ${8443}`);
+});
+
+const socketio = require('socket.io');
+
+const io = socketio(server,{
+  cors: {
+      origin: "http://localhost:3000"
+  }
+})
+
+io.on('connection', (socket) => {
+  console.log('New connection')
+  global.socket = socket;
+})
 
 
-// app.listen(443, function () {
-//   console.log('Example app listening on port 3000!');
-// });
-
-
-module.exports = { app,server};
+module.exports = { app,server,io};

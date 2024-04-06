@@ -32,6 +32,12 @@ router.get('/non_bid_players/:id', (req, res) => {
     .catch((err) => res.status(500).json(err))
 });
 
+router.get('/sold_players', (req, res) => {
+    playerService.getSoldPlayers(req.params.id)
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
 router.post('/players', bodyParser.json(),(req, res) => {
     console.log(req.body)
     playerService.addPlayers(req.body)
@@ -39,6 +45,19 @@ router.post('/players', bodyParser.json(),(req, res) => {
     .catch((err) => res.status(500).json(err))
 });
 
+router.post('/player_display', bodyParser.json(),(req, res) => {
+    console.log(req.body)
+    playerService.displayPlayer(req.body)
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
+router.post('/team_call', bodyParser.json(),(req, res) => {
+    console.log(req.body)
+    playerService.teamCall(req.body)
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
 
 router.put('/players', bodyParser.json(),(req, res) => {
     console.log(req.body)

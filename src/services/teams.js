@@ -13,7 +13,7 @@ async function getTeams(){
             let promiseArray =[];
             let promiseCountArray = [];
             teams.forEach(async (element,index) => {
-                promiseArray.push(s3Service.getDownloadUrl({"key" : element.team_logo, "bucket" : "cricket-team"}))
+                promiseArray.push(s3Service.getDownloadUrl({"key" : element.team_logo, "bucket" : "palloor-teams"}))
             });
             let profilePromises = await Promise.allSettled(promiseArray)
             let teamArray = [...teams];

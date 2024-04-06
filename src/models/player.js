@@ -22,7 +22,8 @@ module.exports = (sequelize, type) => {
         bowling_style: { type: type.STRING, allowNull: true },
         team_id : { type: type.INTEGER, allowNull: true },
         base_amount : { type: type.INTEGER, allowNull: true },
-        bid_amount : { type: type.INTEGER, allowNull: true }
+        bid_amount : { type: type.INTEGER, allowNull: true },
+        un_sold : { type: type.BOOLEAN, allowNull: false, default:false }
       },
       {
         timestamps: true,
