@@ -11,7 +11,9 @@ async function displayPlayer(player){
     return new Promise(async (resolve, reject) => {
         try {
             console.log("fdfsdf----socket--Connect----sdfsdfsdf----")
-            global?.socket?.emit('current_player', JSON.stringify(player))
+            if(global && global.socket){
+                global.socket.emit('current_player', JSON.stringify(player))
+            }
             resolve('success')
         }catch(e){
             console.log("error occured in displayPlayer= ", e);
