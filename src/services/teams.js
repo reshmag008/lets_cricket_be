@@ -51,10 +51,12 @@ async function updateTeam(team){
             let updateParam = {
                 total_points : addedTeam.total_points - team.bid_amount,
                 player_count : addedTeam.player_count + 1,
-                max_bid_amount : (addedTeam.total_points - team.bid_amount) - ( (11 - addedTeam.player_count ) * 500 )
+                max_bid_amount : (addedTeam.total_points - team.bid_amount) - ( (13 - addedTeam.player_count ) * 500 )
             }
             addedTeam.set(updateParam);
             await addedTeam.save();
+            let team_logo = await s3Service.getDownloadUrl({"key" : addedTeam.team_logo, "bucket" : "palloor-teams"})
+            addedTeam.team_logo = team_logo;
             resolve(addedTeam)
         }catch(e){
             console.log("error occured in addTeams= ", e);
