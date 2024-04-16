@@ -9,7 +9,7 @@ require('./config/db_connection');
 
 app.use(cors());
 // app.options('*', cors());
-const ALLOWED_ORIGINS="https://letscricketfe-production.up.railway.app,http://localhost:3000";
+const ALLOWED_ORIGINS="https://n05-sports.vercel.app,http://localhost:3000";
 
 const allowedOrigins = ALLOWED_ORIGINS ? ALLOWED_ORIGINS.split(',') : [];
 // Enable Cross-Origin Resource Sharing (CORS) for all routes
@@ -58,7 +58,7 @@ const socketio = require('socket.io');
 
 const io = socketio(server,{
   cors: {
-      origin: "http://localhost:3000"
+      origin: allowedOrigins
   }
 })
 
