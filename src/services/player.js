@@ -56,7 +56,7 @@ async function getSoldPlayers(){
                   bid_amount: {
                     [Sequelize.Op.not]: null
                   }
-                },limit : 10,order: [['updatedAt', 'DESC']]
+                },order: [['updatedAt', 'DESC']]
               });
             let promiseArray =[];
             let teamPromiseArray = [];
@@ -95,7 +95,7 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll({});
+                players = await models.players.findAll({limit:80, offset:160});
             }
             let promiseArray =[];
             players.forEach(async (element,index) => {
