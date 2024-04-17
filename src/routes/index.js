@@ -59,6 +59,13 @@ router.post('/team_call', bodyParser.json(),(req, res) => {
     .catch((err) => res.status(500).json(err))
 });
 
+router.post('/team_complete', bodyParser.json(),(req, res) => {
+    console.log(req.body)
+    playerService.teamComplete(req.body)
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
 router.put('/players', bodyParser.json(),(req, res) => {
     console.log(req.body)
     playerService.updatePlayers(req.body)
@@ -95,6 +102,12 @@ router.post('/teams', bodyParser.json(),(req, res) => {
 
 router.get('/teamNames', (req, res) => {
     teamService.getTeamNames()
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
+router.get('/update_unsold', (req, res) => {
+    playerService.updateUnSold()
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
 });

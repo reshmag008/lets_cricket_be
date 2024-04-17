@@ -34,6 +34,20 @@ async function teamCall(teamCallData){
     })
 }
 
+async function teamComplete(teamData){
+    return new Promise(async (resolve, reject) => {
+        try {
+            global.socket.emit('team_complete', JSON.stringify(teamData))
+            resolve('success')
+        }catch(e){
+            console.log("error occured in displayPlayer= ", e);
+            reject(e);
+        }
+    })
+}
+
+
+
 async function getSoldPlayers(){
     return new Promise(async (resolve, reject) => {
         try {
@@ -81,7 +95,7 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll({offset:85});
+                players = await models.players.findAll({});
             }
             let promiseArray =[];
             players.forEach(async (element,index) => {
@@ -207,6 +221,20 @@ async function updatePlayers(player){
     })
 }
 
+async function updateUnSold(){
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log("inside update unsoldddddddddddddddd")
+            let resp = await models.players.update({un_sold:false},{where:{un_sold:true}});
+            console.log("resp== ", resp);
+            resolve(resp);
+        }catch(e){
+            reject(e)
+        }
+    })
+
+}
+
 
 
 
@@ -218,5 +246,7 @@ module.exports = {
     getNonBidPlayers :getNonBidPlayers,
     displayPlayer : displayPlayer,
     teamCall : teamCall,
-    getSoldPlayers : getSoldPlayers
+    getSoldPlayers : getSoldPlayers,
+    teamComplete :teamComplete,
+    updateUnSold:updateUnSold
 };
