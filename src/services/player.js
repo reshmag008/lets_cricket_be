@@ -95,7 +95,7 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll({limit:80, offset:160});
+                players = await models.players.findAll({});
             }
             let promiseArray =[];
             players.forEach(async (element,index) => {
