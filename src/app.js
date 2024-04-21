@@ -5,6 +5,7 @@ var express = require('express');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 var app = express();
+
 require('./config/db_connection');
 
 app.use(cors());
@@ -37,6 +38,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "*");
   next();
 });
+
+app.use(express.static('public'))
 
 
 

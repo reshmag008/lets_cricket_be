@@ -7,9 +7,9 @@ class ConfigConnection {
     // host: 'player-auction.cxue6q6m2f3h.us-east-1.rds.amazonaws.com',
 
   connectDB () {
-    this.sequelize = new Sequelize('palloor_league', 'admin', 'ppladmin', {
-      host: 'palloor-cricket.cfuaeoyceh7c.ap-southeast-2.rds.amazonaws.com',
-      port : 3306,
+    this.sequelize = new Sequelize('kpl', 'avnadmin', 'AVNS_zEZTWlYzZAqKd5A_H4Z', {
+      host: 'mysql-n05-sports-n05-sports.d.aivencloud.com',
+      port : 24760,
       dialect: 'mysql',
       operatorsAliases: true,
       freezeTableName: true,

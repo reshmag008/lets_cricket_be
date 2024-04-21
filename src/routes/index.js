@@ -4,6 +4,48 @@ const teamService = require('../services/teams')
 const bodyParser = require('body-parser');
 const s3Service = require('../services/s3Service');
 const router = express.Router();
+const path = require('path');
+
+
+const multer = require('multer')
+
+const imageStorage = multer.diskStorage({
+    // Destination to store image     
+    destination: 'public/player_images', 
+      filename: (req, file, cb) => {
+          cb(null, req.body.file_name)
+            // file.fieldname is name of the field (image)
+            // path.extname get the uploaded file extension
+    }
+});
+
+
+const imageUpload = multer({
+    storage: imageStorage,
+    limits: {
+      fileSize: 1000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+        console.log("req=== ", req.body.file_name)
+      if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) { 
+         // upload only png and jpg format
+         return cb(new Error('Please upload a Image'))
+       }
+     cb(undefined, true)
+  }
+}) 
+
+
+router.post('/player_image_upload', imageUpload.single('image'), (req, res) => {
+    console.log("req== ", req.body.file_name)
+    console.log("inside player_image_upload")
+    res.send(req.file)
+}, (error, req, res, next) => {
+    console.log("eror== ", error)
+    res.status(400).send({ error: error.message })
+})
+    
+
 
 
 router.get('/players', (req, res) => {

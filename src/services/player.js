@@ -95,17 +95,19 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll({});
+                players = await models.players.findAll();
             }
-            let promiseArray =[];
-            players.forEach(async (element,index) => {
-                promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "palloor-players"}))
-            });
-            let profilePromises = await Promise.allSettled(promiseArray);
+
+            // let promiseArray =[];
+            // players.forEach(async (element,index) => {
+            //     promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "palloor-players"}))
+            // });
+            // let profilePromises = await Promise.allSettled(promiseArray);
             if(players.length>0){
-            players.forEach((element,index)=>{
-                players[index]['profile_image'] = profilePromises[index].value;
-            })
+
+            // players.forEach((element,index)=>{
+            //     players[index]['profile_image'] = profilePromises[index].value;
+            // })
 
             
             let unSoldPlayerCount = await models.players.count({where: {un_sold : true} });
