@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const s3Service = require('../services/s3Service');
 const router = express.Router();
 const path = require('path');
-
+const googleApisService = require('../services/googleApis')
 
 const multer = require('multer')
 
@@ -150,6 +150,16 @@ router.get('/teamNames', (req, res) => {
 
 router.get('/update_unsold', (req, res) => {
     playerService.updateUnSold()
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
+
+router.post('/upload-file',imageUpload.single('image'),(req, res) => {
+    // console.log("-----req-------",req)
+    console.log("-----body-------",req.body)
+    console.log("-----file-------",req.file)
+    googleApisService.uploadFile(req.body,req.file)
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
 });
