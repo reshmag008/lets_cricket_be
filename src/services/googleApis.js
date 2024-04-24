@@ -1,5 +1,7 @@
 const fs = require('fs');
 const { google }= require('googleapis');
+const models = require('../models');
+
 
 const apikeys = require('../../apiKey.json');
 const SCOPE = ['https://www.googleapis.com/auth/drive'];
@@ -20,7 +22,7 @@ async function authorize(){
 
 // A Function that will upload the desired file to google drive folder
 async function uploadFile(params, file){
-    console.log("file.mimeType== ", file.mimeType);
+    console.log("file.params== ", params);
     return new Promise(async (resolve, reject) => {
         let authClient = await authorize();
         const drive = google.drive({version:'v3',auth:authClient}); 
@@ -37,17 +39,43 @@ async function uploadFile(params, file){
                 mimeType:file.mimeType
             },
             fields:'id'
-        },function(error,file){
+        },async function(error,file){
             if(error){
                 console.log("error=== ", error);
                 return reject(error)
             }
-            resolve(file);
+            let fileId = file?.data?.id;
+            console.log("fileId=== ", fileId);
+            if(fileId){
+                let selectedPlayer = await models.players.findOne({where : {id : params.player_id}});
+                selectedPlayer.set({profile_image : fileId});
+                await selectedPlayer.save();
+                resolve(selectedPlayer);
+            }else{
+                resolve(file);
+            }
+            
         })
     });
 }
 
+async function previewFile(fileId){
+    return new Promise(async (resolve, reject) => {
+        let authClient = await authorize();
+        const drive = google.drive({version:'v3',auth:authClient}); 
+
+        try {
+            const response = await drive.files.get({ fileId, fields: 'webViewLink' });
+            resolve(response.data.webViewLink);
+          } catch (error) {
+            console.error('Error retrieving image URL:', error);
+            reject(error);
+          }
+    });
+}
+
 module.exports = {
-    uploadFile : uploadFile
+    uploadFile : uploadFile,
+    previewFile : previewFile
    
 };

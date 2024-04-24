@@ -156,10 +156,14 @@ router.get('/update_unsold', (req, res) => {
 
 
 router.post('/upload-file',imageUpload.single('image'),(req, res) => {
-    // console.log("-----req-------",req)
-    console.log("-----body-------",req.body)
-    console.log("-----file-------",req.file)
     googleApisService.uploadFile(req.body,req.file)
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
+router.get('/preview-file/:fileId',(req, res) => {
+    console.log("req.params= ", req.params)
+    googleApisService.previewFile(req.params.fileId)
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
 });
