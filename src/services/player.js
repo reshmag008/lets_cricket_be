@@ -161,23 +161,25 @@ async function getNonBidPlayers(id) {
                     }
                   });
             }
-            let promiseArray =[];
-            if(players.length>0){
-                players.forEach(async (element,index) => {
-                    promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "palloor-players"}))
-                });
-                let profilePromises = await Promise.allSettled(promiseArray)
+            // let promiseArray =[];
+            // if(players.length>0){
+            //     players.forEach(async (element,index) => {
+            //         promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "palloor-players"}))
+            //     });
+            //     let profilePromises = await Promise.allSettled(promiseArray)
 
-                players.forEach((element,index)=>{
-                    players[index]['profile_image'] = profilePromises[index].value;
+            //     players.forEach((element,index)=>{
+            //         players[index]['profile_image'] = profilePromises[index].value;
 
-                    if(index == players.length-1){
-                        resolve(players)
-                    }
-                })
-            }else{
-                resolve([])
-            }
+            //         if(index == players.length-1){
+            //             resolve(players)
+            //         }
+            //     })
+            // }else{
+            //     resolve([])
+            // }
+
+            resolve(players);
             
         }catch(e){
             console.log("error occured in getPlayers= ", e);

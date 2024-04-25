@@ -10,19 +10,20 @@ async function getTeams(){
     return new Promise(async (resolve, reject) => {
         try {
             let teams = await models.teams.findAll();
-            let promiseArray =[];
-            let promiseCountArray = [];
-            teams.forEach(async (element,index) => {
-                promiseArray.push(s3Service.getDownloadUrl({"key" : element.team_logo, "bucket" : "palloor-teams"}))
-            });
-            let profilePromises = await Promise.allSettled(promiseArray)
-            let teamArray = [...teams];
-            teamArray.forEach((element,index)=>{
-                teamArray[index]['team_logo'] = profilePromises[index].value;
-                if(index == teamArray.length-1){
-                    resolve(teamArray)
-                }
-            })
+            // let promiseArray =[];
+            // let promiseCountArray = [];
+            // teams.forEach(async (element,index) => {
+            //     promiseArray.push(s3Service.getDownloadUrl({"key" : element.team_logo, "bucket" : "palloor-teams"}))
+            // });
+            // let profilePromises = await Promise.allSettled(promiseArray)
+            // let teamArray = [...teams];
+            // teamArray.forEach((element,index)=>{
+            //     teamArray[index]['team_logo'] = profilePromises[index].value;
+            //     if(index == teamArray.length-1){
+            //         resolve(teamArray)
+            //     }
+            // })
+            resolve(teams);
         }catch(e){
             console.log("error occured in getTeams= ", e);
             reject(e);

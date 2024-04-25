@@ -47,10 +47,18 @@ async function uploadFile(params, file){
             let fileId = file?.data?.id;
             console.log("fileId=== ", fileId);
             if(fileId){
-                let selectedPlayer = await models.players.findOne({where : {id : params.player_id}});
-                selectedPlayer.set({profile_image : fileId});
-                await selectedPlayer.save();
-                resolve(selectedPlayer);
+                if(params.player_id){
+                    let selectedPlayer = await models.players.findOne({where : {id : params.player_id}});
+                    selectedPlayer.set({profile_image : fileId});
+                    await selectedPlayer.save();
+                    resolve(selectedPlayer);
+                }
+                // if(params.team_id){
+                //     let selectedTeam = await models.teams.findOne({where : {id : params.team_id}});
+                //     selectedTeam.set({team_logo : fileId});
+                //     await selectedTeam.save();
+                //     resolve(selectedTeam)
+                // }
             }else{
                 resolve(file);
             }
