@@ -8,42 +8,42 @@ const s3Service = require('./s3Service');
 
 
 async function displayPlayer(player){
-    return new Promise(async (resolve, reject) => {
-        try {
-            console.log("fdfsdf----socket--Connect----sdfsdfsdf----")
-            if(global && global.socket){
-                global.socket.emit('current_player', JSON.stringify(player))
-            }
-            resolve('success')
-        }catch(e){
-            console.log("error occured in displayPlayer= ", e);
-            reject(e);
-        }
-    })
+    // return new Promise(async (resolve, reject) => {
+    //     try {
+    //         console.log("fdfsdf----socket--Connect----sdfsdfsdf----")
+    //         if(global && global.socket){
+    //             global.socket.emit('current_player', JSON.stringify(player))
+    //         }
+    //         resolve('success')
+    //     }catch(e){
+    //         console.log("error occured in displayPlayer= ", e);
+    //         reject(e);
+    //     }
+    // })
 }
 
 async function teamCall(teamCallData){
-    return new Promise(async (resolve, reject) => {
-        try {
-            global.socket.emit('team_call', JSON.stringify(teamCallData))
-            resolve('success')
-        }catch(e){
-            console.log("error occured in displayPlayer= ", e);
-            reject(e);
-        }
-    })
+    // return new Promise(async (resolve, reject) => {
+    //     try {
+    //         global.socket.emit('team_call', JSON.stringify(teamCallData))
+    //         resolve('success')
+    //     }catch(e){
+    //         console.log("error occured in displayPlayer= ", e);
+    //         reject(e);
+    //     }
+    // })
 }
 
 async function teamComplete(teamData){
-    return new Promise(async (resolve, reject) => {
-        try {
-            global.socket.emit('team_complete', JSON.stringify(teamData))
-            resolve('success')
-        }catch(e){
-            console.log("error occured in displayPlayer= ", e);
-            reject(e);
-        }
-    })
+    // return new Promise(async (resolve, reject) => {
+    //     try {
+    //         global.socket.emit('team_complete', JSON.stringify(teamData))
+    //         resolve('success')
+    //     }catch(e){
+    //         console.log("error occured in displayPlayer= ", e);
+    //         reject(e);
+    //     }
+    // })
 }
 
 
@@ -95,7 +95,7 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll();
+                players = await models.players.findAll({});
             }
 
             // let promiseArray =[];
@@ -216,7 +216,7 @@ async function updatePlayers(player){
                 }
                 updateTeam = await teamService.updateTeam(updateTeamParam)
             }
-            global.socket.emit('player_sold', JSON.stringify(player))
+            // global.socket.emit('player_sold', JSON.stringify(player))
             resolve(updateTeam)
         }catch(e){
             console.log("error occured in addPlayers= ", e);
