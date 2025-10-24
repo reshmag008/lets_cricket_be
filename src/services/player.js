@@ -8,44 +8,55 @@ const s3Service = require('./s3Service');
 
 
 async function displayPlayer(player){
-    // return new Promise(async (resolve, reject) => {
-    //     try {
-    //         console.log("fdfsdf----socket--Connect----sdfsdfsdf----")
-    //         if(global && global.socket){
-    //             global.socket.emit('current_player', JSON.stringify(player))
-    //         }
-    //         resolve('success')
-    //     }catch(e){
-    //         console.log("error occured in displayPlayer= ", e);
-    //         reject(e);
-    //     }
-    // })
+    return new Promise(async (resolve, reject) => {
+        try {
+            console.log("fdfsdf----socket--Connect----sdfsdfsdf----")
+            if(global && global.socket){
+                global.socket.emit('current_player', JSON.stringify(player))
+            }
+            resolve('success')
+        }catch(e){
+            console.log("error occured in displayPlayer= ", e);
+            reject(e);
+        }
+    })
 }
 
 async function teamCall(teamCallData){
-    // return new Promise(async (resolve, reject) => {
-    //     try {
-    //         global.socket.emit('team_call', JSON.stringify(teamCallData))
-    //         resolve('success')
-    //     }catch(e){
-    //         console.log("error occured in displayPlayer= ", e);
-    //         reject(e);
-    //     }
-    // })
+    return new Promise(async (resolve, reject) => {
+        try {
+            global.socket.emit('team_call', JSON.stringify(teamCallData))
+            resolve('success')
+        }catch(e){
+            console.log("error occured in displayPlayer= ", e);
+            reject(e);
+        }
+    })
 }
 
 async function teamComplete(teamData){
-    // return new Promise(async (resolve, reject) => {
-    //     try {
-    //         global.socket.emit('team_complete', JSON.stringify(teamData))
-    //         resolve('success')
-    //     }catch(e){
-    //         console.log("error occured in displayPlayer= ", e);
-    //         reject(e);
-    //     }
-    // })
+    return new Promise(async (resolve, reject) => {
+        try {
+            global.socket.emit('team_complete', JSON.stringify(teamData))
+            resolve('success')
+        }catch(e){
+            console.log("error occured in displayPlayer= ", e);
+            reject(e);
+        }
+    })
 }
 
+async function closePopup(){
+    return new Promise(async (resolve, reject) => {
+        try {
+            global.socket.emit('close_popup')
+            resolve('success')
+        }catch(e){
+            console.log("error occured in displayPlayer= ", e);
+            reject(e);
+        }
+    })
+}
 
 
 async function getSoldPlayers(){
@@ -56,20 +67,20 @@ async function getSoldPlayers(){
                   bid_amount: {
                     [Sequelize.Op.not]: null
                   }
-                },order: [['updatedAt', 'DESC']]
+                },order: [['updatedAt', 'DESC']], limit:10
               });
             let promiseArray =[];
             let teamPromiseArray = [];
             players.forEach(async (element,index) => {
-                promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "palloor-players"}))
+                // promiseArray.push(s3Service.getDownloadUrl({"key" : element.profile_image, "bucket" : "palloor-players"}))
                 teamPromiseArray.push(models.teams.findOne({where:{id : element.team_id}}))
             });
-            let profilePromises = await Promise.allSettled(promiseArray);
+            // let profilePromises = await Promise.allSettled(promiseArray);
             let teamPromises = await Promise.allSettled(teamPromiseArray);
             if(players.length>0){
             players.forEach((element,index)=>{
-                players[index]['profile_image'] = profilePromises[index].value;
-                console.log("teamPromises[index].value== ", teamPromises[index].value);
+                // players[index]['profile_image'] = profilePromises[index].value;
+                // console.log("teamPromises[index].value== ", teamPromises[index].value);
                 players[index]['team_id'] = teamPromises[index].value.team_name
             })
 
@@ -95,7 +106,8 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll({});
+                players = await models.players.findAll({ limit: 1
+                });
             }
 
             // let promiseArray =[];
@@ -216,7 +228,7 @@ async function updatePlayers(player){
                 }
                 updateTeam = await teamService.updateTeam(updateTeamParam)
             }
-            // global.socket.emit('player_sold', JSON.stringify(player))
+            global.socket.emit('player_sold', JSON.stringify(player))
             resolve(updateTeam)
         }catch(e){
             console.log("error occured in addPlayers= ", e);
@@ -252,5 +264,6 @@ module.exports = {
     teamCall : teamCall,
     getSoldPlayers : getSoldPlayers,
     teamComplete :teamComplete,
-    updateUnSold:updateUnSold
+    updateUnSold:updateUnSold,
+    closePopup:closePopup
 };

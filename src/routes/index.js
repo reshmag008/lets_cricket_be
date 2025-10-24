@@ -49,6 +49,7 @@ router.post('/player_image_upload', imageUpload.single('image'), (req, res) => {
 
 
 router.get('/players', (req, res) => {
+    console.log("req==", req.body)
     playerService.getPlayers()
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))
@@ -108,6 +109,12 @@ router.post('/team_complete', bodyParser.json(),(req, res) => {
     .catch((err) => res.status(500).json(err))
 });
 
+router.post('/close_popup', bodyParser.json(),(req, res) => {
+    playerService.closePopup()
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err))
+});
+
 router.put('/players', bodyParser.json(),(req, res) => {
     console.log(req.body)
     playerService.updatePlayers(req.body)
@@ -155,7 +162,7 @@ router.get('/update_unsold', (req, res) => {
 });
 
 
-router.post('/upload-file',imageUpload.single('image'),(req, res) => {
+router.post('/google-upload-file',imageUpload.single('image'),(req, res) => {
     googleApisService.uploadFile(req.body,req.file)
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err))

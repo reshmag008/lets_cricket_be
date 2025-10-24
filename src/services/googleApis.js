@@ -20,6 +20,31 @@ async function authorize(){
     return jwtClient;
 }
 
+
+// Upload file to Google Drive
+// const uploadFile = async (fileBuffer, fileName, mimeType) => {
+//     let authClient = await authorize();
+// const drive = google.drive({ version: 'v3', auth:authClient });
+//   try {
+//     const response = await drive.files.create({
+//       requestBody: {
+//         name: fileName,
+//         mimeType: mimeType,
+//       },
+//       media: {
+//         mimeType: mimeType,
+//         body: Buffer.from(fileBuffer, 'binary'),
+//       },
+//     });
+//     console.log('File uploaded to Google Drive with ID:', response.data.id);
+//     return response.data;
+//   } catch (error) {
+//     console.error('Error uploading to Google Drive:', error);
+//     throw error;
+//   }
+// };
+
+
 // A Function that will upload the desired file to google drive folder
 async function uploadFile(params, file){
     console.log("file.params== ", params);
@@ -47,12 +72,12 @@ async function uploadFile(params, file){
             let fileId = file?.data?.id;
             console.log("fileId=== ", fileId);
             if(fileId){
-                if(params.player_id){
-                    let selectedPlayer = await models.players.findOne({where : {id : params.player_id}});
-                    selectedPlayer.set({profile_image : fileId});
-                    await selectedPlayer.save();
-                    resolve(selectedPlayer);
-                }
+                // if(params.player_id){
+                //     let selectedPlayer = await models.players.findOne({where : {id : params.player_id}});
+                //     selectedPlayer.set({profile_image : fileId});
+                //     await selectedPlayer.save();
+                //     resolve(selectedPlayer);
+                // }
                 // if(params.team_id){
                 //     let selectedTeam = await models.teams.findOne({where : {id : params.team_id}});
                 //     selectedTeam.set({team_logo : fileId});
