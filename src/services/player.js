@@ -106,7 +106,7 @@ async function getPlayers(id){
             if(id){
                 players = await models.players.findAll({where :{team_id : id}});
             }else{
-                players = await models.players.findAll({ limit: 1
+                players = await models.players.findAll({ 
                 });
             }
 
