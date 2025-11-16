@@ -7,7 +7,18 @@ const router = express.Router();
 const path = require('path');
 const googleApisService = require('../services/googleApis')
 
-const multer = require('multer')
+const multer = require("multer");
+// const gcsUpload = multer({ storage: multer.memoryStorage() });
+
+const gcsUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }, // optional: 5MB limit
+});
+
+const { bucket } = require("../config/gcp_storage");
+
+
+
 
 const imageStorage = multer.diskStorage({
     // Destination to store image     
@@ -34,6 +45,45 @@ const imageUpload = multer({
      cb(undefined, true)
   }
 }) 
+
+router.post("/gcsupload", gcsUpload.single("file"), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).send("No file");
+
+    const fileName = req.body.file_name;
+
+    const blob = bucket.file(fileName);
+   
+
+    const blobStream = blob.createWriteStream({
+  resumable: false,
+  metadata: {
+    contentType: req.file.mimetype
+  }
+});
+
+    blobStream.on("error", (err) => {
+      console.log("Blob Error:", err);
+      res.status(500).json({ error: err.message });
+    });
+    console.log("bucket.name== ", bucket.name)
+    blobStream.on("finish", () => {
+      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
+      return res.status(200).json({ url: publicUrl });
+    });
+
+    blobStream.end(req.file.buffer);
+
+
+
+
+
+  } catch (e) {
+    console.log("catch error== ", e);
+    res.status(500).send(e.message);
+  }
+});
+
 
 
 router.post('/player_image_upload', imageUpload.single('image'), (req, res) => {

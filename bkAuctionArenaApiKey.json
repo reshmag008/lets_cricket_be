@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "bk-auction-arena",
+  "private_key_id": "ea2572445a0c47d18f7acc3d100ad941e22b50a3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCfjlV8uPwEzzfm\n5JTV4bnaV/3EU7C/XSUCm5rYksXDlxngqoIXj3htv1zssoQczqqJ089pmK6dTmqZ\nDAqy2UNlgo/rkKItM+u0+YRwuk6RhhqTvemlbWhDwX0u3G1oHLXBdkRvlUyF/3+l\nhj0/bVwvb+TtJsyVtowJumwiJawXu1px/Tx04LS6W59lDVwMvUUM7NgppECLO+Aw\nRFQytcA581eetOxsikVla9iOwXuRpB/yLLAZmBI+iAvIC1z5iMmVDNbnGQVpP7Dz\nV1IacMam3hR4XvSvRSJdTB5OtH7AqWhkmYVr3X07JmCwCiRBIOcbzxoJS8Qmj/qB\nTz9L/IoPAgMBAAECggEAQoXZZpLJoEe1CvMqirH+BubAyuYJvv9auuede8ZV5eJN\ny7nLW39ZuogaeiVDp68Sszw4MdKSmsti7kRzAXZL/zqcPp6ivy3yjBWr/kPvFgVP\nd2Gq1Gn1GqrFQpBsnQe7T9m7VrpsmUGZOq3pQ1SZJr4EOEwA6Dqf0D6Fbwc95PZy\n8BV9AGJPA37XXMuYYpJ6lDrDo2zsvNbuLGScx/mb3YW0Chn2DpJUIcRz+V+9KQI+\n2EXtaE4a5HpURKsHrFACKzWzbsEQQ3VJPd2aOgCUIvXMCPIjJSZi7uumBZW5klkp\nG4X/SmTVbLgGpdoofwldbTDNw0RAvB4Fpsmd6fyHwQKBgQDcCkiFa5FW9aD43q5f\nT5iH27ofTUbns/tginWoG1Mz48+7T/mRdrr4ais69Ec6FVr0d2H4s/Y3IG43BkVh\n6BncSTDUMrAekKnqoDxaYka0GsPor/ItQM/+Gjdo0RFqGJvDDA+ZfaQDoA0EJxEn\niqOZHXknQs46zr2XXiH8ORjwpwKBgQC5oZpIufEeh3nAnJqtAbK5wagGHcFemHt+\n1F04gltt4F/IYaN7QnuEG6nx6GSu6LXG+3paBdj9rxW9OzPuyDUwuS3CR2MG9VCW\nSb9DMz9Wwh/zp8NF9TUrQgHjFnenVnEme4Mv3wuksF85GjkMqqEqQTW6hdzNDyEu\n41L+dWQgWQKBgGrbC5DPRgtmyT9SVHewnbAMQnyE+JP40XB2jOCQNH2UegLKubWs\nZOvSEyBUFGreiAcEGq2+JylqNFvATd1X64cQfAfwfZq6QenQ2r5Bz3gTL2RGXWMg\ngGEztgjOzpgpTysPJlwxqX6hMPD9T9VV/FCVAYrRZHkmgOeLLRHhYH0tAoGAbP+5\nKk8UiAqgsTrDkCbZHT3bPYwnSTZb/YMRIedZbFE9rNm4Nt44zL+5sHP2+sVmR2rO\n0yFv4rX2G+Exg1pH8U4q0lM8kI9nPHgdOIZVAMqIHHg7r05mY/okRYWhyL53PlN0\nGp3rpk5x+4OsUAW5EKittdJ4bmgd4fxVdVjU7DECgYAOLtt4QOayF3X4LHAMBRtl\nJHt7JBvIFeF7TjwCevRn6lNnCHhPfjHdok55i58uk6b27/MJBHNdn17/l5r0NCNF\nVQX/b+cCx3WJGcECih26yy65mLiewxlc+T279B+hyzUzN+Ra/HoulWzBNMMlNAbh\nYL8yp+giIAhCpfOUHfyFYQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bk-auction-arena@bk-auction-arena.iam.gserviceaccount.com",
+  "client_id": "100400910395171305562",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bk-auction-arena%40bk-auction-arena.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

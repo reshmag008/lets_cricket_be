@@ -3,7 +3,7 @@ const { google }= require('googleapis');
 const models = require('../models');
 
 
-const apikeys = require('../../apiKey.json');
+const apikeys = require('../../bkAuctionArenaApiKey.json');
 const SCOPE = ['https://www.googleapis.com/auth/drive'];
 
 // A Function that can provide access to google drive api
@@ -54,7 +54,7 @@ async function uploadFile(params, file){
 
         var fileMetaData = {
             name:params.file_name,    
-            parents:['1WlimkFE1AkNQwjW_yjqZd4yWpDMJ3zd7'] // A folder ID to which file will get uploaded
+            parents:['15AiQ9vb98yVDSDqdQlwvHIdq6zgzUXLY'] // A folder ID to which file will get uploaded
         }
 
         drive.files.create({
