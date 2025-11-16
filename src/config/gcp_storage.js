@@ -2,8 +2,14 @@ const { Storage } = require("@google-cloud/storage");
 const path = require("path");
 const fs = require("fs");
 
+const serviceAccount = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY_JSON);
+
+// const storage = new Storage({
+//   keyFilename: path.resolve(__dirname, "../keys/gcp-service-account.json"),
+//   projectId: "smooth-kiln-478304-t6",
+// });
 const storage = new Storage({
-  keyFilename: path.resolve(__dirname, "../keys/gcp-service-account.json"),
+  credentials: serviceAccount,
   projectId: "smooth-kiln-478304-t6",
 });
 
