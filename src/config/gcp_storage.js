@@ -2,7 +2,7 @@ const { Storage } = require("@google-cloud/storage");
 const path = require("path");
 
 const storage = new Storage({
-  keyFilename: path.join(__dirname, "../keys/gcp-service-account.json"),
+  keyFilename: path.join(__dirname, "../gcp-service-account.json"),
   projectId: "smooth-kiln-478304-t6",
 });
 
