@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 const serviceAccount = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY_JSON);
+console.log("serviceAccount== ", serviceAccount)
 
 // const storage = new Storage({
 //   keyFilename: path.resolve(__dirname, "../keys/gcp-service-account.json"),
@@ -10,10 +11,9 @@ const serviceAccount = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY_JSON);
 // });
 const storage = new Storage({
   credentials: serviceAccount,
-  projectId: "smooth-kiln-478304-t6",
 });
 
-console.log("Key exists:", fs.existsSync(path.resolve(__dirname, "../keys/gcp-service-account.json")));
+// console.log("Key exists:", fs.existsSync(path.resolve(__dirname, "../keys/gcp-service-account.json")));
 
 
 const bucketName = "auction-players";
