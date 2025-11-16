@@ -2,16 +2,16 @@ const { Storage } = require("@google-cloud/storage");
 const path = require("path");
 const fs = require("fs");
 
-const serviceAccount = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY_JSON);
-console.log("serviceAccount== ", serviceAccount)
+// const serviceAccount = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY_JSON);
+// console.log("serviceAccount== ", serviceAccount)
 
-// const storage = new Storage({
-//   keyFilename: path.resolve(__dirname, "../keys/gcp-service-account.json"),
-//   projectId: "smooth-kiln-478304-t6",
-// });
 const storage = new Storage({
-  credentials: serviceAccount,
+  keyFilename: path.resolve(__dirname, "../keys/gcp.json"),
+  projectId: "smooth-kiln-478304-t6",
 });
+// const storage = new Storage({
+//   credentials: serviceAccount,
+// });
 
 // console.log("Key exists:", fs.existsSync(path.resolve(__dirname, "../keys/gcp-service-account.json")));
 

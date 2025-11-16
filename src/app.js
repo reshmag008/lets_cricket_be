@@ -55,8 +55,9 @@ app.use((err, req, res, next) => {
   res.status(500).json({error: 'an error occurred'});
 });
 
-const server = app.listen(8443, () => {
-  console.log(`Server is running on port ${8443}`);
+const PORT = process.env.PORT || 8443;
+const server = app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 const socketio = require('socket.io');
