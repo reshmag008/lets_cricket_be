@@ -3,7 +3,6 @@ const path = require("path");
 const fs = require("fs");
 
 const serviceAccount = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY_JSON);
-console.log("serviceAccount== ", serviceAccount)
 
 // const storage = new Storage({
 //   keyFilename: path.resolve(__dirname, "../keys/gcp-service.json"),
